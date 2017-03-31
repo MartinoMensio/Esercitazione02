@@ -26,3 +26,7 @@ psql -U postgres -d trasporti
 # comando per uscire
 \q
 ```
+
+Come eliminare un container: `docker rm NAME`
+Come fermare un container: `docker stop NAME`
+`docker ps -a`: i container anche non in esecuzione
