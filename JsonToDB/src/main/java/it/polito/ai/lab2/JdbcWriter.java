@@ -9,7 +9,7 @@ public class JdbcWriter {
 	private Connection connection;
 	private String insertBusLineStr = "INSERT INTO BusLine(line, description) values (?, ?)";
 	private String insertBusStopStr = "INSERT INTO BusStop(id, name, lat, lng) values (?, ?, ?, ?)";
-	private String insertBusLineStopStr = "INSERT INTO BusLineStop(stopId, lineId, sequenceNumber) values (?, ?, ?)";
+	private String insertBusLineStopStr = "INSERT INTO BusLineStop(stopId, lineId, seqenceNumber) values (?, ?, ?)";
 	private String deleteAll = "DELETE FROM BusLineStop; DELETE FROM BusLine; DELETE FROM BusStop";
 
 	private PreparedStatement busLineInsertStmt;
@@ -44,6 +44,7 @@ public class JdbcWriter {
 			busLineInsertStmt.setString(1, busLine.getLine());
 			busLineInsertStmt.setString(2, busLine.getDescription());
 			busLineInsertStmt.executeUpdate();
+			insertBusLineStop(busLine);
 		} catch (SQLException e) {
 			throw new RuntimeException("insert bus line failed: " + e.getMessage());
 		}
