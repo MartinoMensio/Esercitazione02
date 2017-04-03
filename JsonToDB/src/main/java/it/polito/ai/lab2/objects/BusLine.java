@@ -13,7 +13,13 @@ public class BusLine {
 	
 	private String line;
 	private String description;
-	private List stops;
+	private List<String> stops;
+	
+	public BusLine(String line, String description, List<String> stops) {
+		this.line = line;
+		this.description = description;
+		this.stops = stops;
+	}
 	
 	public String getLine() {
 		return line;

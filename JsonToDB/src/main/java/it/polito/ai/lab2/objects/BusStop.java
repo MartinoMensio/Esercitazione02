@@ -7,6 +7,13 @@ public class BusStop {
 	private double latitude;
 	private double longitude;
 	
+	public BusStop(String id, String name, double latitude, double longitude) {
+		this.id = id;
+		this.name = name;
+		this.latitude = latitude;
+		this.longitude = longitude;
+	}
+	
 	public String getId() {
 		return id;
 	}
