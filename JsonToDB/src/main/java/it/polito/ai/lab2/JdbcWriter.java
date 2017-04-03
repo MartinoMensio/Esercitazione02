@@ -8,8 +8,9 @@ public class JdbcWriter {
 
 	private Connection connection;
 	private String insertBusLineStr = "INSERT INTO BusLine(line, description) values (?, ?)";
-	private String insertBusStopStr = "INSERT INTO BusStop(id, name, lat, long) values (?, ?, ?, ?)";
+	private String insertBusStopStr = "INSERT INTO BusStop(id, name, lat, lng) values (?, ?, ?, ?)";
 	private String insertBusLineStopStr = "INSERT INTO BusLineStop(stopId, lineId, sequenceNumber) values (?, ?, ?)";
+	private String deleteAll = "DELETE FROM BusLineStop; DELETE FROM BusLine; DELETE FROM BusStop";
 
 	private PreparedStatement busLineInsertStmt;
 	private PreparedStatement busStopInsertStmt;
@@ -21,7 +22,10 @@ public class JdbcWriter {
 
 			connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/trasporti", "postgres",
 					"ai-user-password");
+			// set auto commit to false so that transactions are used
 			connection.setAutoCommit(false);
+			// clear the three tables
+			connection.createStatement().execute(deleteAll);
 			busLineInsertStmt = connection.prepareStatement(insertBusLineStr);
 			busStopInsertStmt = connection.prepareStatement(insertBusStopStr);
 			busLineStopInsertStmt = connection.prepareStatement(insertBusLineStopStr);
@@ -34,49 +38,43 @@ public class JdbcWriter {
 	/**
 	 * Always insert all the stops before adding the bus lines, because of
 	 * foreign keys
-	 * 
-	 * @param busLine
-	 * @return
 	 */
-	public boolean insertBusLine(BusLine busLine) {
+	public void insertBusLine(BusLine busLine) {
 		try {
 			busLineInsertStmt.setString(1, busLine.getLine());
 			busLineInsertStmt.setString(2, busLine.getDescription());
-			int result = busLineInsertStmt.executeUpdate();
-			return result == 1;
+			busLineInsertStmt.executeUpdate();
 		} catch (SQLException e) {
-			return false;
+			throw new RuntimeException("insert bus line failed: " + e.getMessage());
 		}
 
 	}
 
-	boolean insertBusLineStop(BusLine busLine) {
+	void insertBusLineStop(BusLine busLine) {
 		int seqNumber = 0;
-		int inserted = 0;
-		for (String stopId : busLine.getStops()) {
-			try {
+		try {
+			for (String stopId : busLine.getStops()) {
+
 				busLineStopInsertStmt.setString(1, stopId);
 				busLineStopInsertStmt.setString(2, busLine.getLine());
 				busLineStopInsertStmt.setInt(3, seqNumber);
-				inserted += busLineStopInsertStmt.executeUpdate();
+				busLineStopInsertStmt.executeUpdate();
 				seqNumber++;
-			} catch (SQLException e) {
-				return false;
 			}
+		} catch (SQLException e) {
+			throw new RuntimeException("insert bus line stop failed: " + e.getMessage());
 		}
-		return inserted == busLine.getStops().size();
 	}
 
-	public boolean insertBusStop(BusStop busStop) {
+	public void insertBusStop(BusStop busStop) {
 		try {
 			busStopInsertStmt.setString(1, busStop.getId());
 			busStopInsertStmt.setString(2, busStop.getName());
 			busStopInsertStmt.setDouble(3, busStop.getLat());
 			busStopInsertStmt.setDouble(4, busStop.getLng());
-			int result = busStopInsertStmt.executeUpdate();
-			return result == 1;
+			busStopInsertStmt.executeUpdate();
 		} catch (SQLException e) {
-			return false;
+			throw new RuntimeException("insert bus stop failed: " + e.getMessage());
 		}
 	}
 
