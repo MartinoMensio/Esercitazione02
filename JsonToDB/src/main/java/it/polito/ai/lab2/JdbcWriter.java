@@ -39,32 +39,45 @@ public class JdbcWriter {
 	 * @return
 	 */
 	public boolean insertBusLine(BusLine busLine) {
-		busLineInsertStmt.setString(1, busLine.getLine());
-		busLineInsertStmt.setInt(2, busLine.getDescription());
-		int result = busLineInsertStmt.executeUpdate();
-		return result == 1;
+		try {
+			busLineInsertStmt.setString(1, busLine.getLine());
+			busLineInsertStmt.setString(2, busLine.getDescription());
+			int result = busLineInsertStmt.executeUpdate();
+			return result == 1;
+		} catch (SQLException e) {
+			return false;
+		}
+
 	}
 
 	boolean insertBusLineStop(BusLine busLine) {
 		int seqNumber = 0;
-		int inserted;
+		int inserted = 0;
 		for (String stopId : busLine.getStops()) {
-			busLineStopInsertStmt.setString(1, stopId);
-			busLineStopInsertStmt.setString(2, busLine.getLine());
-			busLineStopInsertStmt.setInt(3, seqNumber);
-			inserted += busLineStopInsertStmt.executeUpdate();
-			seqNumber++;
+			try {
+				busLineStopInsertStmt.setString(1, stopId);
+				busLineStopInsertStmt.setString(2, busLine.getLine());
+				busLineStopInsertStmt.setInt(3, seqNumber);
+				inserted += busLineStopInsertStmt.executeUpdate();
+				seqNumber++;
+			} catch (SQLException e) {
+				return false;
+			}
 		}
 		return inserted == busLine.getStops().size();
 	}
 
 	public boolean insertBusStop(BusStop busStop) {
-		busStopInsertStmt.setString(1, busStop.getId());
-		busStopInsertStmt.setString(2, busStop.getName());
-		busStopInsertStmt.setDouble(3, busStop.getLat());
-		busStopInsertStmt.setDouble(4, busStop.getLng());
-		int result = busStopInsertStmt.executeUpdate();
-		return result == 1;
+		try {
+			busStopInsertStmt.setString(1, busStop.getId());
+			busStopInsertStmt.setString(2, busStop.getName());
+			busStopInsertStmt.setDouble(3, busStop.getLat());
+			busStopInsertStmt.setDouble(4, busStop.getLng());
+			int result = busStopInsertStmt.executeUpdate();
+			return result == 1;
+		} catch (SQLException e) {
+			return false;
+		}
 	}
 
 	/**
