@@ -16,10 +16,14 @@
 		
 
 <p> **********************************************  </p>
+<p> **** here there will the list of the busLines  </p>
+	<ul class="map_redirections">
+	<li><a href="mapPage.jsp">LineaEsempio1</a></li>
+	<li><a href="mapPage.jsp">LineaEsempio2</a></li>
+	</ul>
 <p> **********************************************  </p>
-<p> **********************************************  </p>
-<p> **********************************************  </p>
-<p> ******here there will the list of the busLines  </p>
+<p> **** selezionando una linea, bisogna essere reindirizzati alla pagina della mappa e mostrare polilinea corrispondente alle fermate </p>
+	
 <br> <br> <br> <br> 
 
     </div>    
