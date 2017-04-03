@@ -20,5 +20,10 @@
 			<artifactId>javax.json-api</artifactId>
 			<version>1.0</version>
 		</dependency>
+		<dependency>
+			<groupId>org.glassfish</groupId> <!-- For testing the code http://stackoverflow.com/questions/22812113/http-status-500-provider-org-glassfish-json-jsonproviderimpl-not-found -->
+			<artifactId>javax.json</artifactId>
+			<version>1.0.4</version>
+		</dependency>
 	</dependencies>
 </project>

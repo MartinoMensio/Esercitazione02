@@ -18,6 +18,7 @@ public class JsonFileReader {
 	public static void read(){
 		File jsonInputFile = new File("../linee.json");
 		InputStream is;
+		
 		/*try {
 			is = new FileInputStream(jsonInputFile);
 			// Create JsonReader from Json.
@@ -38,6 +39,7 @@ public class JsonFileReader {
 			for(JsonValue value : arrObj){
 				System.out.println(value.toString());
 			}*/
+		
 		try{
 			is = new FileInputStream(jsonInputFile);
 			// Create JsonReader from Json.
@@ -46,31 +48,37 @@ public class JsonFileReader {
 			JsonObject jsonObj = reader.readObject();
 			// read lines array
 			JsonArray linesArr = jsonObj.getJsonArray("lines");
-			System.out.println("\nLines:");
+			System.out.println("Lines:");
+			
+			
+			for(JsonValue value : linesArr){
+				System.out.println(value.toString());
+			}
 
 			// read single line element from lines list
 			for(int i = 0; i < linesArr.size(); i++){
 				JsonObject elementObj = linesArr.getJsonObject(i);
 
 				// read line data
-				JsonObject lineObj = elementObj.getJsonObject("line");
-				System.out.println("Line: " + elementObj.getString("line"));
+				//JsonObject lineObj = elementObj.getJsonObject("line");
+				System.out.println("\nLine: " + elementObj.getString("line"));
 
-				//read desc data
-				JsonObject descObj = elementObj.getJsonObject("desc");
+				// read desc data
+				//JsonObject descObj = elementObj.getJsonObject("desc");
 				System.out.println("Desc: " + elementObj.getString("desc"));
 
 				// read stops array
-				JsonArray stopsArr = jsonObj.getJsonArray("stops");
-				System.out.println("\nStops:");
+				JsonArray stopsArr = elementObj.getJsonArray("stops");
+				System.out.print("Stops:");
 
+				// read stop data
 				for(JsonValue value : stopsArr){
-					System.out.println(value.toString());
+					System.out.print(value.toString());
 				}
 			}
 
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
+			System.out.println("File not found error.\n");
 			e.printStackTrace();
 		}
 	}
