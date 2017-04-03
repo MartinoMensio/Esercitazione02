@@ -12,11 +12,16 @@
     </jsp:attribute>
 	<jsp:body>
 	<div style="padding-top: 50px;">
-		<h1>Home page</h1>
-        <p>Welcome to the Bus Line website!</p>      
-    </div>  
-    <br> <br> <br> <br>  
-     
+		<h1>List of Bus Lines</h1>
+		
+
+<p> **********************************************  </p>
+<p> **********************************************  </p>
+<p> **********************************************  </p>
+<p> **********************************************  </p>
+<p> ******here there will the list of the busLines  </p>
+<br> <br> <br> <br> 
+
+    </div>    
     </jsp:body>
 </t:template>
-    
