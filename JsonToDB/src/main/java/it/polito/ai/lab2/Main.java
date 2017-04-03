@@ -9,7 +9,10 @@ public class Main {
 	public static void main(String[] args) {
 		
 		JdbcWriter jdbcWriter = new JdbcWriter();
+		JsonFileReader jfr = new JsonFileReader();
 		System.out.println("Connected to db");
+		
+		jfr.read();
 		
 		// TODO ask to JsonFileReader all the data
 		List<BusLine> busLines = null;

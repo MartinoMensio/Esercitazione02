@@ -6,18 +6,19 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 
 import javax.json.Json;
+import javax.json.JsonArray;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
+import javax.json.JsonValue;
 
 // Reads a JSON object or an array structure from an input source.
 public class JsonFileReader {
-	//JsonReaderFactory factory = Json.createReaderFactory(config);
-	//JsonReader jsonReader = Json.createReader(new StringReader("[]"));
-	//jsonReader.close();
+
+
 	public static void read(){
 		File jsonInputFile = new File("../linee.json");
 		InputStream is;
-		try {
+		/*try {
 			is = new FileInputStream(jsonInputFile);
 			// Create JsonReader from Json.
 			JsonReader reader = Json.createReader(is);
@@ -31,6 +32,43 @@ public class JsonFileReader {
 			// read inner json element
 			JsonObject addrObj = empObj.getJsonObject("address");
 			System.out.println("City: " + addrObj.getString("city"));
+			// read json array
+			JsonArray arrObj = empObj.getJsonArray("direct_reports");
+			System.out.println("\nDirect Reports:");
+			for(JsonValue value : arrObj){
+				System.out.println(value.toString());
+			}*/
+		try{
+			is = new FileInputStream(jsonInputFile);
+			// Create JsonReader from Json.
+			JsonReader reader = Json.createReader(is);
+			// Get the JsonObject structure from JsonReader.
+			JsonObject jsonObj = reader.readObject();
+			// read lines array
+			JsonArray linesArr = jsonObj.getJsonArray("lines");
+			System.out.println("\nLines:");
+
+			// read single line element from lines list
+			for(int i = 0; i < linesArr.size(); i++){
+				JsonObject elementObj = linesArr.getJsonObject(i);
+
+				// read line data
+				JsonObject lineObj = elementObj.getJsonObject("line");
+				System.out.println("Line: " + elementObj.getString("line"));
+
+				//read desc data
+				JsonObject descObj = elementObj.getJsonObject("desc");
+				System.out.println("Desc: " + elementObj.getString("desc"));
+
+				// read stops array
+				JsonArray stopsArr = jsonObj.getJsonArray("stops");
+				System.out.println("\nStops:");
+
+				for(JsonValue value : stopsArr){
+					System.out.println(value.toString());
+				}
+			}
+
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
