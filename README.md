@@ -27,6 +27,8 @@ psql -U postgres -d trasporti
 \q
 ```
 
-Come eliminare un container: `docker rm NAME`
-Come fermare un container: `docker stop NAME`
-`docker ps -a`: i container anche non in esecuzione
+Altri comandi utili:
+- far partire container esistente: `docker start postgis`
+- eliminare un container: `docker rm NAME`
+- fermare un container: `docker stop NAME`
+- elencare tutti i container (anche non in esecuzione): `docker ps -a`
