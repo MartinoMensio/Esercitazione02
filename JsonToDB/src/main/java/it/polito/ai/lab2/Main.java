@@ -1,6 +1,7 @@
 package it.polito.ai.lab2;
 
 import java.util.List;
+import java.util.Set;
 
 import it.polito.ai.lab2.objects.*;
 
@@ -12,11 +13,12 @@ public class Main {
 		JsonFileReader jfr = new JsonFileReader();
 		System.out.println("Connected to db");
 		
-		jfr.read();
+		// parsing Json file to Java objects
+		jfr.readJson();
 		
 		// TODO ask to JsonFileReader all the data
-		List<BusLine> busLines = null;
-		List<BusStop> busStops = null;
+		Set<BusLine> busLines = jfr.busLines;
+		Set<BusStop> busStops = jfr.busStops;
 		
 		// put all the data in DB calling JdbcWriter
 		/*for (BusStop busStop : busStops) {
