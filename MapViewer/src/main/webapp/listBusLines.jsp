@@ -22,7 +22,9 @@
 	<li><a href="mapPage.jsp">LineaEsempio2</a></li>
 	</ul>
 <p> **********************************************  </p>
-<p> **** selezionando una linea, bisogna essere reindirizzati alla pagina della mappa e mostrare polilinea corrispondente alle fermate </p>
+<p> **** selezionando una linea, bisogna essere reindirizzati alla pagina della mappa </p>
+<p> **** e mostrare la polilinea corrispondente alle fermate </p>
+<p> **** READ the instructions for creating a new polyline:  <a href="http://leafletjs.com/reference.html#polyline">http://leafletjs.com/reference.html#polyline</a> </p>
 	
 <br> <br> <br> <br> 
 
