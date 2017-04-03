@@ -49,11 +49,6 @@ public class JsonFileReader {
 			// read lines array
 			JsonArray linesArr = jsonObj.getJsonArray("lines");
 			System.out.println("Lines:");
-			
-			
-			for(JsonValue value : linesArr){
-				System.out.println(value.toString());
-			}
 
 			// read single line element from lines list
 			for(int i = 0; i < linesArr.size(); i++){
@@ -72,14 +67,20 @@ public class JsonFileReader {
 				System.out.print("Stops:");
 
 				// read stop data
-				for(JsonValue value : stopsArr){
-					System.out.print(value.toString());
+				/*for(int j = 0; j < stopsArr.size(); j++){
+					JsonObject stopObj = stopsArr.getJsonObject(j);
+					System.out.print(stopObj.getString(""));
+				}*/
+				for(JsonValue value : stopsArr){	
+					System.out.print(value.toString().replaceAll("\"", "") + ", ");	
+			
 				}
 			}
 
 		} catch (FileNotFoundException e) {
 			System.out.println("File not found error.\n");
 			e.printStackTrace();
+			System.exit(-1);
 		}
 	}
 }
