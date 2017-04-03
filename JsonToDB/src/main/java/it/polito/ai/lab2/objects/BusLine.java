@@ -5,10 +5,6 @@ package it.polito.ai.lab2.objects;
 
 import java.util.List;
 
-/**
- * @author riccardopersiani
- *
- */
 public class BusLine {
 	
 	private String line;
