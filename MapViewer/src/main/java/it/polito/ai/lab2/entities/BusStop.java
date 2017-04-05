@@ -14,6 +14,7 @@ public class BusStop {
 	private double latitude;
 	@Column(name="lng")
 	private double longitude;
+	@ManyToMany(mappedBy="stops")
 	private List<BusLine> lines = new ArrayList<BusLine>();
 	
 	public String getId() {
@@ -32,7 +33,6 @@ public class BusStop {
 		return longitude;
 	}
 	
-	@ManyToMany(mappedBy="stops")
 	public List<BusLine> getLines() {
 		return lines;
 	}
