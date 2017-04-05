@@ -23,8 +23,8 @@
 	</ul>
 <p> **********************************************  </p>
 <p> **** selezionando una linea, bisogna essere reindirizzati alla pagina della mappa </p>
-<p> **** e mostrare la polilinea corrispondente alle fermate </p>
-<p> **** READ the instructions for creating a new polyline:  <a href="http://leafletjs.com/reference.html#polyline">http://leafletjs.com/reference.html#polyline</a> </p>
+<p> **** e creare la polilinea corrispondente alle fermate </p>
+<p> **** ad esempio, cliccando una linea -> redirezione a mapPage insieme a un parametro (numero linea) </p>
 	
 <br> <br> <br> <br> 
 

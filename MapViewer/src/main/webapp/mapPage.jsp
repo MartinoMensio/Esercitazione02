@@ -29,8 +29,15 @@
 
 	L.marker([45.06, 7.68]).addTo(mymap)
 		.bindPopup("<b>Welcome!</b><br />Turin city map").openPopup();
-
-
+	
+	// you should receive a parameter with the number of busLine, then create the polyline
+	// here you can add a polyline, insert a vector of LatLng
+	// var polyline = L.polyline(latlngs, {color: 'red'}).addTo(mymap);
+	
+	var examplePolyline = L.polyline([[45.064, 7.681],[45.067, 7.678],[45.069, 7.675]], {color: 'red'}).addTo(mymap); // example of polyline
+	mymap.fitBounds(examplePolyline.getBounds());  // it is used to zoom in/out and see the whole polyline on the map
+	
+	
 	var popup = L.popup();
 
 	function onMapClick(e) {
