@@ -24,7 +24,7 @@ public class JsonFileReader {
 	static Set<BusLine> busLines = new HashSet<BusLine>();
 	static Set<BusStop> busStops = new HashSet<BusStop>();
 
-	public static void readJson(){
+	 static void readJson(){
 		File jsonInputFile = new File("../linee.json");
 		InputStream is;
 
@@ -35,8 +35,7 @@ public class JsonFileReader {
 			// Get the JsonObject structure from JsonReader.
 			JsonObject jsonObj = reader.readObject();
 
-			/** BUS LINES **/
-
+			// BUS LINES
 			// read lines array
 			JsonArray linesArr = jsonObj.getJsonArray("lines");
 			System.out.println("Lines:");
@@ -70,8 +69,7 @@ public class JsonFileReader {
 				busLines.add(bl);
 			}
 
-			/** BUS STOPS **/
-
+			 //BUS STOPS
 			// read stops array
 			JsonArray busStopsArr = jsonObj.getJsonArray("stops");
 			System.out.println("Stops:");
@@ -98,8 +96,8 @@ public class JsonFileReader {
 				for(JsonValue value : busLatLngArr){		
 					latLng.add(value.toString().replaceAll("\"", ""));
 				}
-				double lat = Double.parseDouble(latLng.get(0).toString());
-				double lng = Double.parseDouble(latLng.get(1).toString());
+				double lat = Double.parseDouble(latLng.get(0));
+				double lng = Double.parseDouble(latLng.get(1));
 				
 				System.out.print("Latitute: " + lat + " ");
 				System.out.println("Longitude: " + lng);
