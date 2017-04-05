@@ -9,7 +9,7 @@ public class JdbcWriter {
 	private Connection connection;
 	private String insertBusLineStr = "INSERT INTO BusLine(line, description) values (?, ?)";
 	private String insertBusStopStr = "INSERT INTO BusStop(id, name, lat, lng) values (?, ?, ?, ?)";
-	private String insertBusLineStopStr = "INSERT INTO BusLineStop(stopId, lineId, seqenceNumber) values (?, ?, ?)";
+	private String insertBusLineStopStr = "INSERT INTO BusLineStop(stopId, lineId, sequenceNumber) values (?, ?, ?)";
 	private String deleteAll = "DELETE FROM BusLineStop; DELETE FROM BusLine; DELETE FROM BusStop";
 
 	private PreparedStatement busLineInsertStmt;
