@@ -5,8 +5,8 @@
 Prerequisito: avere docker installato.
 
 ```bash
-# creare un volume docker
-docker volume create
+# creare un volume docker con il nome
+docker volume create Laboratorio2
 # per fare il build assicurarsi di essere nella cartella con il Dockerfile
 # ai/lab2 è il nome dell'immagine
 docker build -t ai/lab2 .
@@ -32,3 +32,5 @@ Altri comandi utili:
 - eliminare un container: `docker rm NAME`
 - fermare un container: `docker stop NAME`
 - elencare tutti i container (anche non in esecuzione): `docker ps -a`
+- eliminare una immagine: `docker rmi NAME`
+- eliminare un volume: `docker volume rm NAME`
