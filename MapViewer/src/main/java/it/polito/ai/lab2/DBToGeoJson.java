@@ -33,14 +33,10 @@ public class DBToGeoJson extends HttpServlet {
 
 		Query query = ((Session) request.getAttribute("session")).createQuery("from busline where busline.line=:line");
 		query.setString("line", line);
-		BusLine busLine = (BusLine) query.list();
-		
+		BusLine busLine = (BusLine) query.list().get(0);
+
 		List<BusStop> busStopList = busLine.getStops();
 
-		// Parsing delle linee
-		for(BusLine line : busLineList){
-			busLineToGeoJson(line);
-		}
 		// Parsing degli stop
 		for(BusStop stop : busStopList){
 			busStopToGeoJson(stop);
@@ -50,7 +46,7 @@ public class DBToGeoJson extends HttpServlet {
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
-	protected JSONObject busLineToGeoJson(BusLine busLine){
+	protected JSONObject busStopToGeoJson(BusStop busStop){
 		// Traduzione in Json
 		JSONObject featureCollection = new JSONObject();
 		featureCollection.put("type", "FeatureCollection");
@@ -65,12 +61,7 @@ public class DBToGeoJson extends HttpServlet {
 		JSONObject feature = new JSONObject();
 		feature.put("type", "Feature");
 		JSONObject geometry = new JSONObject();
-		
-		return null;
 
-	}
-
-	protected JSONObject busStopToGeoJson(BusStop busStop){
 		return null;
 
 	}
