@@ -34,3 +34,4 @@ Altri comandi utili:
 - elencare tutti i container (anche non in esecuzione): `docker ps -a`
 - eliminare una immagine: `docker rmi NAME`
 - eliminare un volume: `docker volume rm NAME`
+- eliminare tuttu i container: 'docker rm $(docker ps -aq)'
