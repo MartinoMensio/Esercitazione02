@@ -4,4 +4,14 @@
 
 <web-app>
   <display-name>Archetype Created Web Application</display-name>
+  <servlet>
+  	<servlet-name>DBToGeoJson</servlet-name>
+  	<display-name>DBToGeoJson</display-name>
+  	<description></description>
+  	<servlet-class>it.polito.ai.lab2.DBToGeoJson</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>DBToGeoJson</servlet-name>
+  	<url-pattern>/DBToGeoJson</url-pattern>
+  </servlet-mapping>
 </web-app>

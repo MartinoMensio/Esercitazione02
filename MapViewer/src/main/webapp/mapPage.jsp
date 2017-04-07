@@ -26,6 +26,13 @@
 	L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
 		maxZoom: 18, id: 'mapbox.streets'
 	}).addTo(mymap);
+	
+	L.Routing.control({
+		  waypoints: [
+		    L.latLng(57.74, 11.94),
+		    L.latLng(57.6792, 11.949)
+		  ]
+		}).addTo(mymap);
 
 	L.marker([45.06, 7.68]).addTo(mymap)
 		.bindPopup("<b>Welcome!</b><br />Turin city map").openPopup();
