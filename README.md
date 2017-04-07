@@ -35,3 +35,11 @@ Altri comandi utili:
 - eliminare una immagine: `docker rmi NAME`
 - eliminare un volume: `docker volume rm NAME`
 - eliminare tuttu i container: `docker rm $(docker ps -aq)`
+
+## Connessione a database dentro docker in windows
+
+Dato che con localhost la connessione viene rifiutata, è necessario creare un file `db_ip.txt` nella cartella `resources` di entrambi i progetti.
+
+In questo file bisogna scrivere nella prima riga il proprio indirizzo IP (non 127.0.0.1 ma quello assegnato dal dhcp della rete a cui si è connessi).
+
+Se il file non è presente, la connessione viene fatta verso localhost.

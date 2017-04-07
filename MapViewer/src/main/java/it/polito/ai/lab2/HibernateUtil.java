@@ -1,5 +1,9 @@
 package it.polito.ai.lab2;
 
+import java.nio.file.*;
+import java.util.*;
+import java.util.stream.Collectors;
+
 import org.hibernate.*;
 import org.hibernate.boot.*;
 import org.hibernate.boot.model.naming.ImplicitNamingStrategyJpaCompliantImpl;
@@ -15,12 +19,20 @@ public class HibernateUtil {
 
 	public static SessionFactory buildSessionFactory() {
 		// TODO Auto-generated method stub
+		String server = null;
+		try {
+			List<String> lines = Files.readAllLines(Paths.get(SessionFactory.class.getClassLoader().getResource("db_ip.txt").getFile()));
+			server = lines.get(0);
+		} catch (Exception e) {
+			server = "localhost";
+		}
+		
 		try {
 		ServiceRegistry registry = new StandardServiceRegistryBuilder()
 				.applySetting(Environment.DRIVER, "org.postgresql.Driver")
 				.applySetting(Environment.USER, "postgres")
 				.applySetting(Environment.PASS, "ai-user-password")
-				.applySetting(Environment.URL, "jdbc:postgresql://localhost/trasporti")
+				.applySetting(Environment.URL, "jdbc:postgresql://" + server + "/trasporti")
 				.applySetting(Environment.DIALECT, "org.hibernate.dialect.PostgreSQLDialect")
 				.applySetting(Environment.HBM2DDL_AUTO, "validate")
 				.applySetting(Environment.FORMAT_SQL, "true")

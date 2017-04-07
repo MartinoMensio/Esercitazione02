@@ -1,6 +1,8 @@
 package it.polito.ai.lab2;
 
+import java.nio.file.*;
 import java.sql.*;
+import java.util.*;
 
 import it.polito.ai.lab2.objects.*;
 
@@ -19,8 +21,16 @@ public class JdbcWriter {
 	public JdbcWriter() {
 		try {
 			Class.forName("org.postgresql.Driver");
+			
+			String server = null;
+			try {
+				List<String> lines = Files.readAllLines(Paths.get(JdbcWriter.class.getClassLoader().getResource("db_ip.txt").getFile()));
+				server = lines.get(0);
+			} catch (Exception e) {
+				server = "localhost";
+			}
 
-			connection = DriverManager.getConnection("jdbc:postgresql://localhost:5432/trasporti", "postgres",
+			connection = DriverManager.getConnection("jdbc:postgresql://" + server + ":5432/trasporti", "postgres",
 					"ai-user-password");
 			// set auto commit to false so that transactions are used
 			connection.setAutoCommit(false);
