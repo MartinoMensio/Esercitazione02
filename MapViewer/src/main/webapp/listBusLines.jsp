@@ -33,9 +33,6 @@
 			<div style="padding-top: 50px;">
 				<h1>List of Bus Lines</h1>
 
-
-				<p>**********************************************</p>
-				<p>**** here there will the list of the busLines</p>
 				<ul class="map_redirections">
 					<%
 						Query query = ((Session) request.getAttribute("session")).createQuery("From BusLine l order by l.line");
@@ -47,12 +44,6 @@
 						}
 					%>
 				</ul>
-				<p>**********************************************</p>
-				<p>**** selezionando una linea, bisogna essere reindirizzati
-					alla pagina della mappa</p>
-				<p>**** e creare la polilinea corrispondente alle fermate</p>
-				<p>**** ad esempio, cliccando una linea -> redirezione a mapPage
-					insieme a un parametro (numero linea)</p>
 
 				<br> <br> <br> <br>
 
