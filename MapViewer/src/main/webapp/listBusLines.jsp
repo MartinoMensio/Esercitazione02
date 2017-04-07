@@ -38,11 +38,11 @@
 				<p>**** here there will the list of the busLines</p>
 				<ul class="map_redirections">
 					<%
-						Query query = ((Session) request.getAttribute("session")).createQuery("From BusLine");
+						Query query = ((Session) request.getAttribute("session")).createQuery("From BusLine l order by l.line");
 						List<BusLine> busLineList = query.list();
 						for (BusLine busLine : busLineList) {
 					%>
-					<li><a href="mapPage.jsp"><%=busLine.getLine()%></a></li>
+					<li><a href="mapPage.jsp?line=<%=busLine.getLine()%>"><%=busLine.getLine() + " - " + busLine.getDescription()%></a></li>
 					<%
 						}
 					%>
