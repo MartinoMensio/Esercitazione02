@@ -18,5 +18,5 @@ create table if not exists BusLineStop (
   sequenceNumber smallint not null,
   primary key(stopId, lineId, sequenceNumber),
   foreign key (stopId) references BusStop(id),
-  foreign key (lineId) references BusLine(line),
+  foreign key (lineId) references BusLine(line)
 );
