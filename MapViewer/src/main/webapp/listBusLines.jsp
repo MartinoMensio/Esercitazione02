@@ -39,7 +39,7 @@
 						List<BusLine> busLineList = query.list();
 						for (BusLine busLine : busLineList) {
 					%>
-					<li><a href="mapPage.jsp?line=<%=busLine.getLine()%>"><%=busLine.getLine() + " - " + busLine.getDescription()%></a></li>
+					<li><a href="getBusStops?line=<%=busLine.getLine()%>"><%=busLine.getLine() + " - " + busLine.getDescription()%></a></li>
 					<%
 						}
 					%>
