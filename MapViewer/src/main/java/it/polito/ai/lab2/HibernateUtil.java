@@ -2,7 +2,6 @@ package it.polito.ai.lab2;
 
 import java.nio.file.*;
 import java.util.*;
-import java.util.stream.Collectors;
 
 import org.hibernate.*;
 import org.hibernate.boot.*;
@@ -21,7 +20,7 @@ public class HibernateUtil {
 		// TODO Auto-generated method stub
 		String server = null;
 		try {
-			List<String> lines = Files.readAllLines(Paths.get(SessionFactory.class.getClassLoader().getResource("db_ip.txt").getFile()));
+			List<String> lines = Files.readAllLines(Paths.get(SessionFactory.class.getClassLoader().getResource("db_ip.txt").toURI().toString().substring(6)));
 			server = lines.get(0);
 		} catch (Exception e) {
 			server = "localhost";

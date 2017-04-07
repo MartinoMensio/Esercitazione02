@@ -24,7 +24,7 @@ public class JdbcWriter {
 			
 			String server = null;
 			try {
-				List<String> lines = Files.readAllLines(Paths.get(JdbcWriter.class.getClassLoader().getResource("db_ip.txt").getFile()));
+				List<String> lines = Files.readAllLines(Paths.get(JdbcWriter.class.getClassLoader().getResource("db_ip.txt").toURI().toString().substring(6)));
 				server = lines.get(0);
 			} catch (Exception e) {
 				server = "localhost";
