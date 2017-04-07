@@ -26,9 +26,12 @@ public class DBToGeoJson extends HttpServlet {
 		// Salvataggio in una lista di BusLine e di BusStop dei dati presenti nel database
 		request.getSession(); //TODO Sostituire?
 		String line = request.getParameter("line");
-
+		System.out.println("Requested line = " + line);
+		
 		Query query = ((Session) request.getAttribute("session")).createQuery("From BusLine where BusLine.line=:line");
 		query.setString("line", line);
+		System.out.println("Query = " + query.toString());
+		
 		BusLine busLine = (BusLine) query.list().get(0);
 
 		List<BusStop> busStopList = busLine.getStops();
