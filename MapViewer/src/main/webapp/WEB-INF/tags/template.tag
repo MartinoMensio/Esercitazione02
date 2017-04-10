@@ -2,7 +2,6 @@
 <%@ tag import="java.net.*"%>
 <%@attribute name="header" fragment="true"%>
 <%@attribute name="footer" fragment="true"%>
-<%@attribute name="sidenav" fragment="true"%>
 <%@attribute name="title"%>
 <!DOCTYPE html>
 <html>
@@ -28,11 +27,7 @@
 			<jsp:invoke fragment="header" />
 		</div>
 	</div>
-	<div id="sidenav" class="navbar-fixed-top vertical-center"
-		style="width: 250px; margin-top:50px;">
-		<jsp:invoke fragment="sidenav" />
-	</div>
-	<div class="container" style="padding-top: 50px; padding-left: 250px">
+	<div class="container" style="padding-top: 50px;">
 		<div id="body" class="row">
 			<jsp:doBody />
 		</div>

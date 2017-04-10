@@ -28,7 +28,7 @@
 			<%@include file="components/navbar.jsp"%>
 		</div>
 	</div>
-	<div class="container" style="padding-top: 100px; padding-left: 250px">
+	<div class="container" style="padding-top: 50px;">
 		<div id="body" class="row">
 			<div style="padding-top: 50px;">
 				<h1>List of Bus Lines</h1>
