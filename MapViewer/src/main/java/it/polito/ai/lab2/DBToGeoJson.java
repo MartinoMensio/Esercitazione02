@@ -63,10 +63,6 @@ public class DBToGeoJson extends HttpServlet {
 			geometry.put("type", "Point");
 			geometry.put("coordinates", coordinates);
 			
-			// Create and fill up the properties object
-			JSONObject properties = new JSONObject();
-			properties.put("popupContent", stop.getName());
-			
 			// Add the list of lines
 			JSONArray lines = new JSONArray();
 			for (BusLine bl: stop.getLines())
@@ -74,13 +70,17 @@ public class DBToGeoJson extends HttpServlet {
 				lines.put(bl.getLine());
 			}
 			
+			// Create and fill up the properties object
+			JSONObject properties = new JSONObject();
+			properties.put("busStopId", stop.getId());
+			properties.put("busStopName", stop.getName());
+			properties.put("lines", lines);
+			
 			// Create and fill up the bus stop object with type, geometry, id, properties and lines
 			JSONObject feature = new JSONObject();
 			feature.put("type", "Feature");
 			feature.put("geometry", geometry);
-			feature.put("id", stop.getId());
 			feature.put("properties", properties);
-			feature.put("lines", lines);
 			
 			// Add the single feature to the feature collection
 			features.put(feature);
