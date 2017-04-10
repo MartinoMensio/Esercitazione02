@@ -34,15 +34,14 @@
 	
 	L.Routing.control({
 		  waypoints: [
-		    L.latLng(45.0615, 7.67959),
+		    L.latLng(45.0415, 7.67959),
 		    L.latLng(45.06098, 7.68101)
 		  ],
 	routeWhileDragging: true
 		}).addTo(mymap);
-	/*
-	L.marker([45.06, 7.68]).addTo(mymap)
-		.bindPopup("<b>Welcome!</b><br />Turin city map").openPopup();
-	*/
+	
+	//L.marker([45.06, 7.68]).addTo(mymap).bindPopup("<b>Welcome!</b><br />Turin city map").openPopup();
+	
 	// you should receive a parameter with the number of busLine, then create the polyline
 	// here you can add a polyline, insert a vector of LatLng
 	// var polyline = L.polyline(latlngs, {color: 'red'}).addTo(mymap);
@@ -62,6 +61,24 @@
 
 	mymap.on('click', onMapClick);
 	*/
+	
+	// example of popup for busLines passing from a certain busStop
+	/* var popup = L.popup();
+
+	function onMapClick(e) {
+		
+		var numBusStop = "XX"; // you need to identify the busStop which have been clicked
+		var linesOfBusStop = "YYY, YYX, YXZ"; // you need to identify the busLines of the busStop
+		
+		popup
+			.setLatLng(e.latlng)
+			.setContent("The lines passing to bus stop n."+ numBusStop +"\n["+e.latlng.toString()+"] are:\n" + linesOfBusStop)
+			.openOn(mymap);
+	}
+
+	mymap.on('click', onMapClick); */
+	
+	
 </script>
 
 <br> <br> <br> <br> 
