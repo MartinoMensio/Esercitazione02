@@ -38,9 +38,11 @@ public class DBToGeoJson extends HttpServlet {
 
 		// Parsing of the stops
 		JSONObject geoJSON = busStopsToGeoJson(busStopList);
+		JSONArray lineString = getBusLinePath(busStopList);
 		
 		// Add the GeoJson to the session
 		request.getSession().setAttribute("jsonBusStops", geoJSON.toString());
+		request.getSession().setAttribute("jsonBusLine", lineString.toString());
 		
 		// Forward the request to the page that shows the map
 		RequestDispatcher req=request.getRequestDispatcher("/mapPage.jsp");
@@ -87,6 +89,28 @@ public class DBToGeoJson extends HttpServlet {
 		
 		// Add every feature to the root
 		root.put("features", features);
+		return root;
+	}
+	
+	public JSONArray getBusLinePath(List<BusStop> busStopList) {
+		JSONArray root = new JSONArray();
+		
+		JSONArray coordinates = new JSONArray();
+		for (BusStop stop : busStopList) {
+			// Create coordinates array and fill in with the list of bust stops
+			JSONArray latLong = new JSONArray();
+			latLong.put(stop.getLongitude());
+			latLong.put(stop.getLatitude());
+			
+			// Add the line segment to the coordinates array
+			coordinates.put(latLong);
+		}
+		
+		JSONObject geometry = new JSONObject();
+		geometry.put("type", "LineString");
+		geometry.put("coordinates", coordinates);
+		
+		root.put(geometry);
 		return root;
 	}
 }
