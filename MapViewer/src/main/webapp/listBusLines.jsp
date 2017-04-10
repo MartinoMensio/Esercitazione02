@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ page
-	import="org.hibernate.*, java.util.*, it.polito.ai.lab2.entities.*"%>
+	import="org.hibernate.*, org.hibernate.query.Query, java.util.*, it.polito.ai.lab2.entities.*"%>
 <%@ page import="java.net.*"%>
 <!DOCTYPE html>
 <html>
@@ -35,7 +35,8 @@
 
 				<ul class="map_redirections">
 					<%
-						Query query = ((Session) request.getAttribute("session")).createQuery("From BusLine l order by l.line");
+						Query<BusLine> query = ((Session) request.getAttribute("session"))
+								.createQuery("From BusLine l order by l.line", BusLine.class);
 						List<BusLine> busLineList = query.list();
 						for (BusLine busLine : busLineList) {
 					%>
