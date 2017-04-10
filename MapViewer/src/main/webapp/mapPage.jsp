@@ -28,6 +28,21 @@
 
 <script>
 
+    function onEachFeature(feature, layer) {
+        // does this feature have a property named popupContent?
+        if (feature.properties) {
+            var title = "<p>"+feature.properties.busStopId + " - " + feature.properties.busStopName + "</p>" ;
+
+            var lines = "<ul>";
+			for(var i in feature.properties.lines){
+                var elem = "<li>" + feature.properties.lines[i] + "</li>";
+                lines += elem;
+			}
+            lines += "</ul>";
+			layer.bindPopup(title+lines);
+        }
+    }
+
 	var mymap = L.map('mapid').setView([45.064, 7.681], 13);
 
 	//var mymap = L.map('mapid');
@@ -35,7 +50,10 @@
 		maxZoom: 18, id: 'mapbox.streets'
 	}).addTo(mymap);
 	
-	L.geoJSON(busStops).addTo(mymap);
+	L.geoJSON(busStops,{
+		onEachFeature: onEachFeature
+		}).addTo(mymap);
+
 	
 	/*L.Routing.control({
 		  waypoints: [
