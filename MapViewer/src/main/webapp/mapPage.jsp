@@ -23,25 +23,31 @@
 		<h1>Map of Turin</h1>
 		
 <div id="mapid" style="width: 600px; height: 400px;"></div>
+
+<script src="busStops.jsp" type="text/javascript"></script>
+
 <script>
 
-	//var mymap = L.map('mapid').setView([45.064, 7.681], 13);
+	var mymap = L.map('mapid').setView([45.064, 7.681], 13);
 
-	var mymap = L.map('mapid');
+	//var mymap = L.map('mapid');
 	L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
 		maxZoom: 18, id: 'mapbox.streets'
 	}).addTo(mymap);
 	
-	L.Routing.control({
+	L.geoJSON(busStops).addTo(mymap);
+	
+	/*L.Routing.control({
 		  waypoints: [
 		    L.latLng(45.0415, 7.67959),
 		    L.latLng(45.06098, 7.68101)
 		  ],
 	routeWhileDragging: true
-		}).addTo(mymap);
-	
-	//L.marker([45.06, 7.68]).addTo(mymap).bindPopup("<b>Welcome!</b><br />Turin city map").openPopup();
-	
+		}).addTo(mymap);*/
+	/*
+	L.marker([45.06, 7.68]).addTo(mymap)
+		.bindPopup("<b>Welcome!</b><br />Turin city map").openPopup();
+	*/
 	// you should receive a parameter with the number of busLine, then create the polyline
 	// here you can add a polyline, insert a vector of LatLng
 	// var polyline = L.polyline(latlngs, {color: 'red'}).addTo(mymap);

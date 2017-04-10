@@ -3,6 +3,7 @@ package it.polito.ai.lab2;
 import java.io.IOException;
 import java.util.*;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.hibernate.*;
+import org.hibernate.query.Query;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -23,25 +25,26 @@ public class DBToGeoJson extends HttpServlet {
 	// Preleva i dati dal database e li traduce in un file .json seguendo il modello GeoJSON
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		// Salvataggio in una lista di BusLine e di BusStop dei dati presenti nel database
-		request.getSession(); //TODO Sostituire?
+		// Retrieve the selected busLine
 		String line = request.getParameter("line");
-		System.out.println("Requested line = " + line);
 		
-		Query query = ((Session) request.getAttribute("session")).createQuery("From BusLine where BusLine.line=:line");
-		query.setString("line", line);
-		System.out.println("Query = " + query.toString());
+		// Perform the query into the DB
+		Query query = ((Session) request.getAttribute("session")).createQuery("From BusLine l where l.line=:line");
+		query.setParameter("line", line);
 		
+		// Retrieve data query result. It is just one
 		BusLine busLine = (BusLine) query.list().get(0);
-
 		List<BusStop> busStopList = busLine.getStops();
 
 		// Parsing degli stop
 		JSONObject geoJSON = busStopsToGeoJson(busStopList);
-		System.out.println(geoJSON.toString());
 		
-		response.getWriter().println("<h1>Ecco le fermate!!!</h1>");
-		response.setContentType("text/html");
+		// Add the GeoJson to the session
+		request.getSession().setAttribute("jsonBusStops", geoJSON.toString());
+		
+		// Forward the request to the page that shows the map
+		RequestDispatcher req=request.getRequestDispatcher("/mapPage.jsp");
+		req.forward(request, response); 
 	}
 
 	protected JSONObject busStopsToGeoJson(List<BusStop> busStopList) {
@@ -64,17 +67,26 @@ public class DBToGeoJson extends HttpServlet {
 			JSONObject properties = new JSONObject();
 			properties.put("popupContent", stop.getName());
 			
-			// Create and fill up the bus stop object with type, geometry, id and properties
+			// Add the list of lines
+			JSONArray lines = new JSONArray();
+			for (BusLine bl: stop.getLines())
+			{
+				lines.put(bl.getLine());
+			}
+			
+			// Create and fill up the bus stop object with type, geometry, id, properties and lines
 			JSONObject feature = new JSONObject();
 			feature.put("type", "Feature");
 			feature.put("geometry", geometry);
 			feature.put("id", stop.getId());
 			feature.put("properties", properties);
+			feature.put("lines", lines);
 			
 			// Add the single feature to the feature collection
 			features.put(feature);
 		}
 		
+		root.put("features", features);
 		return root;
 	}
 }
