@@ -106,6 +106,9 @@ public class JdbcWriter {
 	 */
 	public void close() {
 		try {
+			busLineInsertStmt.close();
+			busStopInsertStmt.close();
+			busLineStopInsertStmt.close();
 			connection.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
