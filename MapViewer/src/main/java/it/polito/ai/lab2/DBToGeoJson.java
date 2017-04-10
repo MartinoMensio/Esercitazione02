@@ -22,21 +22,21 @@ import it.polito.ai.lab2.entities.BusStop;
 public class DBToGeoJson extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	// Preleva i dati dal database e li traduce in un file .json seguendo il modello GeoJSON
+	// Get the data from the Database and parse them in a GeoJSON format
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		// Retrieve the selected busLine
 		String line = request.getParameter("line");
 		
 		// Perform the query into the DB
-		Query query = ((Session) request.getAttribute("session")).createQuery("From BusLine l where l.line=:line");
+		Query<BusLine> query = ((Session) request.getAttribute("session")).createQuery("From BusLine l where l.line=:line", BusLine.class);
 		query.setParameter("line", line);
 		
 		// Retrieve data query result. It is just one
 		BusLine busLine = (BusLine) query.list().get(0);
 		List<BusStop> busStopList = busLine.getStops();
 
-		// Parsing degli stop
+		// Parsing of the stops
 		JSONObject geoJSON = busStopsToGeoJson(busStopList);
 		
 		// Add the GeoJson to the session
@@ -65,8 +65,7 @@ public class DBToGeoJson extends HttpServlet {
 			
 			// Add the list of lines
 			JSONArray lines = new JSONArray();
-			for (BusLine bl: stop.getLines())
-			{
+			for (BusLine bl: stop.getLines()){
 				lines.put(bl.getLine());
 			}
 			
@@ -86,6 +85,7 @@ public class DBToGeoJson extends HttpServlet {
 			features.put(feature);
 		}
 		
+		// Add every feature to the root
 		root.put("features", features);
 		return root;
 	}
