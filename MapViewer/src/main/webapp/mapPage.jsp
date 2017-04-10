@@ -6,111 +6,61 @@
 <link rel="stylesheet" href="leaflet-routing-machine-3.2.5/dist/leaflet-routing-machine.css" />
 <script src="leaflet-routing-machine-3.2.5/dist/leaflet-routing-machine.js"></script>
 
-
-  
-
 <t:template>
-	<jsp:attribute name="header">
+
+    <jsp:attribute name="header">
       <%@include file="components/navbar.jsp"%>
     </jsp:attribute>
 	<jsp:attribute name="footer">
       <div id="pagefooter" class="row">
-			<%@include file="components/footer.jsp"%>
-		</div>
+          <%@include file="components/footer.jsp"%>
+      </div>
     </jsp:attribute>
+
 	<jsp:body>
-	<div style="padding-top: 50px;">
-		<h1>Map of Turin</h1>
-		
-<div id="mapid" style="width: 600px; height: 400px;"></div>
+        <div style="padding-top: 50px;">
+            <h1>Map of Turin</h1>
+            <div id="mapid" style="width: 600px; height: 400px;"></div>
 
-<script src="busStops.jsp" type="text/javascript"></script>
+            <script src="busStops.jsp" type="text/javascript"></script>
 
-<script>
+            <script>
+                function onEachFeature(feature, layer) {
+                    // does this feature have a property named popupContent?
+                    if (feature.properties) {
+                        var title = "<p>"+feature.properties.busStopId + " - " + feature.properties.busStopName + "</p>" ;
 
-    function onEachFeature(feature, layer) {
-        // does this feature have a property named popupContent?
-        if (feature.properties) {
-            var title = "<p>"+feature.properties.busStopId + " - " + feature.properties.busStopName + "</p>" ;
+                        var lines = "<ul>";
+                        for(var i in feature.properties.lines){
+                            if(feature.properties.lines.hasOwnProperty(i)){
+                                lines += "<li>" + feature.properties.lines[i] + "</li>";
+                            }
+                        }
+                        lines += "</ul>";
+                        layer.bindPopup(title+lines);
+                    }
+                }
 
-            var lines = "<ul>";
-			for(var i in feature.properties.lines){
-                var elem = "<li>" + feature.properties.lines[i] + "</li>";
-                lines += elem;
-			}
-            lines += "</ul>";
-			layer.bindPopup(title+lines);
-        }
-    }
+                // Create the map and set the view on Turin
+                var mymap = L.map('mapid').setView([45.064, 7.681], 13);
 
-	var mymap = L.map('mapid').setView([45.064, 7.681], 13);
+                L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
+                    maxZoom: 18, id: 'mapbox.streets'
+                }).addTo(mymap);
 
-	//var mymap = L.map('mapid');
-	L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
-		maxZoom: 18, id: 'mapbox.streets'
-	}).addTo(mymap);
-	
-	L.geoJSON(busStops,{
-		onEachFeature: onEachFeature
-		}).addTo(mymap);
-	
-	L.geoJSON(busLine, {
-		style: lineStyle
-	}).addTo(mymap);
+                // Create the points
+                L.geoJSON(busStops,{
+                    onEachFeature: onEachFeature
+                    }).addTo(mymap);
 
-	
-	/*L.Routing.control({
-		  waypoints: [
-		    L.latLng(45.0415, 7.67959),
-		    L.latLng(45.06098, 7.68101)
-		  ],
-	routeWhileDragging: true
-		}).addTo(mymap);*/
-	/*
-	L.marker([45.06, 7.68]).addTo(mymap)
-		.bindPopup("<b>Welcome!</b><br />Turin city map").openPopup();
-	*/
-	// you should receive a parameter with the number of busLine, then create the polyline
-	// here you can add a polyline, insert a vector of LatLng
-	// var polyline = L.polyline(latlngs, {color: 'red'}).addTo(mymap);
-	// you can take a look to geoJSON here:    http://leafletjs.com/examples/geojson/
-	/*var examplePolyline = L.polyline([[45.064, 7.681],[45.067, 7.678],[45.069, 7.675]], {color: 'red'}).addTo(mymap); // example of polyline
-	mymap.fitBounds(examplePolyline.getBounds());  // it is used to zoom in/out and see the whole polyline on the map
-	
-	
-	var popup = L.popup();
+                // Create the polyline style
+                L.geoJSON(busLine, {
+                    style: lineStyle
+                }).addTo(mymap);
+            </script>
 
-	function onMapClick(e) {
-		popup
-			.setLatLng(e.latlng)
-			.setContent("You clicked the map at " + e.latlng.toString())
-			.openOn(mymap);
-	}
-
-	mymap.on('click', onMapClick);
-	*/
-	
-	// example of popup for busLines passing from a certain busStop
-	/* var popup = L.popup();
-
-	function onMapClick(e) {
-		
-		var numBusStop = "XX"; // you need to identify the busStop which have been clicked
-		var linesOfBusStop = "YYY, YYX, YXZ"; // you need to identify the busLines of the busStop
-		
-		popup
-			.setLatLng(e.latlng)
-			.setContent("The lines passing to bus stop n."+ numBusStop +"\n["+e.latlng.toString()+"] are:\n" + linesOfBusStop)
-			.openOn(mymap);
-	}
-
-	mymap.on('click', onMapClick); */
-	
-	
-</script>
-
-<br> <br> <br> <br> 
-
-    </div>    
+            <br> <br> <br> <br>
+        </div>
     </jsp:body>
+
 </t:template>

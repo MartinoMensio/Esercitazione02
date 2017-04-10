@@ -17,7 +17,7 @@ public class HibernateUtil {
 	private static final SessionFactory sessionFactory = buildSessionFactory();
 
 	public static SessionFactory buildSessionFactory() {
-		// TODO Auto-generated method stub
+
 		String server = null;
 		try {
 			List<String> lines = Files.readAllLines(Paths.get(SessionFactory.class.getClassLoader().getResource("db_ip.txt").toURI().toString().substring(6)));
