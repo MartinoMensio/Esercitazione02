@@ -53,6 +53,10 @@
 	L.geoJSON(busStops,{
 		onEachFeature: onEachFeature
 		}).addTo(mymap);
+	
+	L.geoJSON(busLine, {
+		style: lineStyle
+	}).addTo(mymap);
 
 	
 	/*L.Routing.control({
