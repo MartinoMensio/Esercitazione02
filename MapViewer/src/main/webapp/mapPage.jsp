@@ -49,14 +49,17 @@
                 }).addTo(mymap);
 
                 // Create the points
-                L.geoJSON(busStops,{
+                var layer = L.geoJSON(busStops,{
                     onEachFeature: onEachFeature
-                    }).addTo(mymap);
+                    })
+                layer.addTo(mymap);
 
                 // Create the polyline style
                 L.geoJSON(busLine, {
                     style: lineStyle
                 }).addTo(mymap);
+                
+                mymap.fitBounds(layer.getBounds())
             </script>
         </div>
     </jsp:body>
