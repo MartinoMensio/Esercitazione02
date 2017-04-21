@@ -1,5 +1,12 @@
 # Esercitazione 2
 
+## Descrizione del contenuto
+
+- JsonToDB: contiene l'applicazione java standalone che estrae il contenuto dal file `linee.json` e popola il DB
+- MapViewer: contiene la webapp per la visualizzazione dei dati delle linee sulla mappa
+
+E' stato necessario modificare il file `schema.sql` includendo il `sequenceNumber` nella chiave primaria della tabella `BusLineStop`
+
 ## Installazione
 
 Prerequisito: avere docker installato.
