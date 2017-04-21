@@ -3,6 +3,5 @@
 </div>
 <ul class="nav navbar-nav">
 	<li><a href="index.jsp">Home</a></li>
-	<li><a href="mapPage.jsp">Map</a></li>
 	<li><a href="listBusLines.jsp">BusLines</a></li>
 </ul>
