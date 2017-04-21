@@ -13,8 +13,10 @@ public class HibernateSessionRequestFilter implements Filter {
 
 	private SessionFactory sf = HibernateUtil.getSessionFactory();
 
+	// Need a filter in order to make the beginTransaction the first operation
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
+		// Start a new session every time a request arrives, crea una sessione nuova se non ce ne è un'altra.
 		Session s = sf.getCurrentSession();
 		Transaction tx = null;
 		try {
@@ -27,8 +29,10 @@ public class HibernateSessionRequestFilter implements Filter {
 				tx.rollback();
 			throw new ServletException(ex);
 		} finally {
-			if (s != null && s.isOpen())
+			if (s != null && s.isOpen()){
+				// Close sessione if open
 				s.close();
+			}
 			s = null;
 		}
 
