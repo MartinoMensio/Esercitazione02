@@ -18,9 +18,9 @@
     </jsp:attribute>
 
 	<jsp:body>
-        <div style="padding-top: 50px;">
+        <div>
             <h1>Map of Turin</h1>
-            <div id="mapid" style="width: 600px; height: 400px;"></div>
+            <div id="mapid" style="width: 100%; height: 400px;"></div>
 
             <script src="busStops.jsp" type="text/javascript"></script>
 
@@ -58,8 +58,6 @@
                     style: lineStyle
                 }).addTo(mymap);
             </script>
-
-            <br> <br> <br> <br>
         </div>
     </jsp:body>
 
